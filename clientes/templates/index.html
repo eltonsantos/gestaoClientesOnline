@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %} Administração {% endblock %}
+
+{% block main %}
+<div class="row">
+    <div class="col-3"></div>
+
+    <div class="col-6">
+        <h3>Listagem de clientes</h3>
+        <ul class="list-group">
+            {% for cliente in clientes %}
+                <li class="list-group-item">
+                    <a href="{% url 'cliente_update' cliente.id %}">{{ cliente.first_name }}</a>
+                    <a href="{% url 'cliente_delete' cliente.id %}" class="trash-item">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <br />
+
+        <a href="{% url 'cliente_new' %}">Novo cliente</a>
+    </div>
+
+    <div class="col-3">
+        {% if user.is_authenticated %}
+            <p>
+                Olá {{ user.username }}
+                <a href="{% url 'logout' %}">
+                    <span class="badge badge-dark">Sair</span>
+                </a>
+            </p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+<footer class="footer">
+    <div class="container">
+        <span class="text-muted">Desenvolvido com Django 2.0</span>
+    </div>
+</footer>
+{% endblock %}
